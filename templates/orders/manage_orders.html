@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Manage Orders</h2>
+
+{% if orders %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.customer.username }}</td>
+                <td>{{ order.status }}</td>
+                <td>{{ order.created_at }}</td>
+                <td>
+                    <a href="{% url 'approve_order' order.id %}" class="btn btn-success btn-sm">Approve</a>
+                    <a href="{% url 'deny_order' order.id %}" class="btn btn-danger btn-sm">Deny</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No orders available.</p>
+{% endif %}
+{% endblock %}
